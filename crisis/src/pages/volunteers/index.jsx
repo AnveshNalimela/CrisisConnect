@@ -1,7 +1,12 @@
 import React from "react";
+import VolunteerRegistrationForm from "./volunteerRegistrationForm";
 
 const Volunteer = () => {
-  return <div>this is Volunteers PAge!!!</div>;
+  return (
+    <>
+      <VolunteerRegistrationForm />
+    </>
+  );
 };
 
 export default Volunteer;

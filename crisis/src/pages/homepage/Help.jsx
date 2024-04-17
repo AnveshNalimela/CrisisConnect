@@ -12,7 +12,7 @@ const Help = () => {
           Wanna be a Volunteer..!!
           <a
             className="bn39 mt-5 text-2xl flex justify-center  items-center  "
-            href="/"
+            href="/volunteer"
           >
             <span class="bn39span">Register</span>
           </a>
