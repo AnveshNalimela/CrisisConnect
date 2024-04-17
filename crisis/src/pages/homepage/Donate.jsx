@@ -1,4 +1,4 @@
-import DonationForm from "./Components/DonationForm.jsx";
+import DonationForm from "../donations/DonationForm.jsx";
 
 const Donate = () => {
   return (
