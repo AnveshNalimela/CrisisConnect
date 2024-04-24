@@ -55,43 +55,50 @@ const DisasterForm = () => {
   };
 
   return (
-    <div className="bg-white p-10">
+    <div className="p-10">
       <form
         onSubmit={handleSubmit}
-        className="max-w-md mx-auto p-4 border border-gray-300 rounded-lg shadow-lg grid grid-cols-1 sm:grid-cols-2 gap-4"
+        className="w-1/2 mx-auto p-4 border border-blue-500 rounded-lg shadow-lg bg-white"
       >
-        <div className="sm:col-span-1">
-          <label className="block mb-2">
+        <h2 className="text-3xl font-bold center ml-20 py-4">
+          Registartion of Disaster.
+        </h2>
+        <h2 className="text-xl font-semibold mt-3 ">Details:</h2>
+        <div className="sm:col-span-1 m-4">
+          <label className="block mb-4 text-semibold">
             Crisis Type:
             <input
               type="text"
               name="crisisType"
+              placeholder="Eg:Flood, Fire etc."
               value={formData.crisisType}
               onChange={handleChange}
-              className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200"
+              className="block  mt-1 border-gray-700 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200 w-1/2 h-8"
             />
           </label>
-          <label className="block mb-2">
+          <label className="block mb-4 text-semibold">
             Location:
             <input
               type="text"
               name="location"
+              placeholder="Eg:kerala"
               value={formData.location}
               onChange={handleChange}
-              className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200"
+              className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200 w-1/2 h-8"
             />
           </label>
-          <label className="block mb-2">
+          <label className="block mb-4 text-semibold">
             Severity:
             <input
               type="text"
-              name="severity"
+              name="serverity"
+              placeholder="Extreme,moderate etc.."
               value={formData.severity}
               onChange={handleChange}
               className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200"
             />
           </label>
-          <label className="block mb-2">
+          <label className="block mb-4 text-semibold">
             Date and Time of Occurrence:
             <input
               type="datetime-local"
@@ -101,16 +108,17 @@ const DisasterForm = () => {
               className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200"
             />
           </label>
-          <label className="block mb-2">
+          <label className="block mb-4 text-semibold">
             Description:
             <textarea
               name="description"
+              placeholder="how is the situation..?"
               value={formData.description}
               onChange={handleChange}
               className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200"
             ></textarea>
           </label>
-          <label className="block mb-2">
+          <label className="block mb-4 text-semibold">
             Number of Casualties:
             <input
               type="number"
@@ -120,7 +128,7 @@ const DisasterForm = () => {
               className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200"
             />
           </label>
-          <label className="block mb-2">
+          <label className="block mb-4 text-semibold">
             Affected Population:
             <input
               type="number"
@@ -130,7 +138,7 @@ const DisasterForm = () => {
               className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200"
             />
           </label>
-          <label className="block mb-2">
+          <label className="block mb-4 text-semibold">
             Emergency Response Needed:
             <input
               type="text"
@@ -142,7 +150,7 @@ const DisasterForm = () => {
           </label>
         </div>
 
-        <label className="block mb-2">
+        <label className="block mb-4 text-semibold">
           Additional Notes:
           <textarea
             name="additionalNotes"
@@ -151,27 +159,29 @@ const DisasterForm = () => {
             className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200"
           ></textarea>
         </label>
-        <label className="block mb-2">
+        <label className="block mb-4 text-semibold">
           Uploader Name:
           <input
             type="text"
             name="uploaderName"
+            placeholder="Enter your Name"
             value={formData.uploaderName}
             onChange={handleChange}
             className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200"
           />
         </label>
-        <label className="block mb-2">
+        <label className="block mb-4 text-semibold">
           Uploader Email:
           <input
             type="email"
             name="uploaderEmail"
+            placeholder="Enter you Email Address"
             value={formData.uploaderEmail}
             onChange={handleChange}
             className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200"
           />
         </label>
-        <label className="block mb-2">
+        <label className="block mb-4 text-semibold">
           Upload Photos:
           <input
             type="file"
@@ -184,7 +194,7 @@ const DisasterForm = () => {
         </label>
         <button
           type="submit"
-          className="block w-full px-4 py-2 mt-4 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          className="block w-1/2 px-4 py-2 mt-10 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
         >
           Submit
         </button>
