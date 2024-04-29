@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, createBrowserRouter } from "react-router-dom";
-
+import Footer from "../Components/Footer";
 import Disaster from "../pages/disasters";
 import Donation from "../pages/donations";
 import HomePage from "../pages/homepage";
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: "/disaster",
+    path: "/newDisaster",
     element: <Disaster />,
   },
   {
@@ -25,10 +25,17 @@ const router = createBrowserRouter([
   {
     path: "/volunteer",
     element: <Volunteer />,
+    children: [
+      
+    ]
   },
   {
     path: "/Donations",
     element: <Donation />,
+  },
+  {
+    path: "/footer",
+    element: <Footer />,
   },
 ]);
 export default router;

@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  /* box-sizing: 0; */
+  padding: 0;
+}
+.main {
+  background: #f7eedd;
+  margin-top: 4rem;
+  margin-left: 15rem;
+  margin-right: 15rem;
+  border: 2px solid;
+  border-top: None;
+  padding: 15px;
+}
+.heading {
+  padding-bottom: 2rem;
+  padding-left: 7rem;
+  margin-top: 4px;
+  font-size: 50px;
+  color: #41c9e2;
+  font-weight: bold;
+}
+.subhead {
+  /* padding-left: 1rem; */
+  font-size: 30px;
+  font-weight: 400px;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1.5rem;
+  padding-right: 2rem;
+  padding-top: 1.5rem;
+  gap: 1rem;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 24px;
+}
+.input {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+  padding: 5px;
+  font-size: 15px;
+}
+.label {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.submit-button {
+  background-color: blue;
+
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 20rem;
+}
+.submit-button:hover {
+  background-color: darkblue;
+}
+
+.custom-shape-divider-top-1714303341 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-top-1714303341 svg {
+  position: relative;
+  display: block;
+  width: calc(233% + 1.3px);
+  height: 86px;
+}
+
+.custom-shape-divider-top-1714303341 .shape-fill {
+  fill: #008dda;
+}

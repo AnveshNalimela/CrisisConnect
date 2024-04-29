@@ -1,9 +1,9 @@
 import React from "react";
+import Footer from "../../Components/Footer.jsx";
+import Header from "../../Components/Header.jsx";
 import About from "./About.jsx";
 import Crisis from "./Crisis.jsx";
 import Donate from "./Donate.jsx";
-import Footer from "./Footer.jsx";
-import Header from "./Header.jsx";
 import Help from "./Help.jsx";
 
 const HomePage = () => {
