@@ -1,11 +1,10 @@
 import React from "react";
-
-import DisasterForm from "./disasterForm";
+import DisasterDetails from "./Disaster";
 
 const Disaster = () => {
   return (
     <div className="disaster">
-      <DisasterForm />
+      <DisasterDetails />
     </div>
   );
 };

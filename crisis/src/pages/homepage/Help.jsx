@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./styles.css";
 
 const Help = () => {
@@ -39,13 +40,15 @@ const Help = () => {
             <span className="bn39span">Register</span>
           </a>
         </div>
-        <Link></Link>
-        <div className="relative w-32 h-32 flex justify-center items-center">
-          <div className="text-4xl font-bold">{volunteerCnt}</div>
-          <div className="absolute bottom-0 px-10 text-center text-2xl text-gray-600">
-            Volunteers
+        <Link to="/volunteer">
+          <div className="relative w-32 h-32 flex justify-center items-center">
+            <div className="text-4xl font-bold">{volunteerCnt}</div>
+            <div className="absolute bottom-0 px-10 text-center text-2xl text-gray-600">
+              Volunteers
+            </div>
           </div>
-        </div>
+        </Link>
+
         <div className="relative w-32 h-32 flex justify-center items-center">
           <div className="text-4xl font-bold">
             {donationAmout.totalDonations}
