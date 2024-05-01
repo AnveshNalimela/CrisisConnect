@@ -51,6 +51,16 @@ const DisasterForm = () => {
       reader.readAsDataURL(file);
     });
   };
+  const sendEmail = async (data) => {
+    try {
+      console.log(data);
+      const res = await axios.post("http://localhost:8080/sendEmail", data);
+      console.log(res);
+      console.log(res.data); // Output: Email sent successfully!
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,7 +73,9 @@ const DisasterForm = () => {
         "http://localhost:3001/addDisaster",
         formData
       );
+      sendEmail(formData);
       console.log(response.data); // Log response from backend
+
       dispatch({ type: "RESET" }); // Reset form after successful submission
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -98,6 +110,7 @@ const DisasterForm = () => {
               value={formData.crisisType}
               onChange={handleChange}
               className=" input ml-10 "
+              required
             />
           </label>
           <label className=" label block mb-4 text-semibold">
@@ -109,6 +122,7 @@ const DisasterForm = () => {
               value={formData.location}
               onChange={handleChange}
               className=" input block w-full"
+              required
             />
           </label>
           <label className=" label block mb-4 text-semibold">
@@ -147,6 +161,7 @@ const DisasterForm = () => {
             <input
               type="number"
               name="casualties"
+              min="0"
               value={formData.casualties}
               onChange={handleChange}
               className="input block"
@@ -157,6 +172,7 @@ const DisasterForm = () => {
             <input
               type="number"
               name="affectedPopulation"
+              min="0"
               value={formData.affectedPopulation}
               onChange={handleChange}
               className="input block "
@@ -192,6 +208,7 @@ const DisasterForm = () => {
             value={formData.uploaderName}
             onChange={handleChange}
             className=" input block w-1/3"
+            required
           />
         </label>
         <label className=" label block mb-4 text-semibold">
@@ -203,6 +220,7 @@ const DisasterForm = () => {
             value={formData.uploaderEmail}
             onChange={handleChange}
             className="input block w-1/3"
+            required
           />
         </label>
         <label className=" label block mb-4 text-semibold">

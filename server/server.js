@@ -10,12 +10,11 @@ const Donation = require("./models/donations")
 
 
 const connectionString = "mongodb://localhost:27017/CrisisConnect";
-
 const app = express()
 app.use(cors())
 app.use(express.json())
 
-
+//================================Connecting to dataBase======
 async function connectToMongoDB() {
     try {
         const server = await mongoose.connect(connectionString);
@@ -26,7 +25,7 @@ async function connectToMongoDB() {
 }
 connectToMongoDB();
 
-
+//==================Endpoint related to  disasters===========
 app.post("/addDisaster", async (req, res) => {
     const body = req.body;
     try {
@@ -37,16 +36,7 @@ app.post("/addDisaster", async (req, res) => {
         res.status(409).json({ message: error.message })
     }
 })
-app.post("/addDonation", async (req, res) => {
-    const body = req.body;
-    try {
-        const newDonation = await Donation.create(body)
-        newDonation.save();
-        res.status(201).json({ msg: "New Donation Succesfully...!" })
-    } catch (error) {
-        res.status(409).json({ message: error.message })
-    }
-})
+
 
 
 app.post("/addVolunteer", (req, res) => {
@@ -59,6 +49,58 @@ app.get("/getDisasters", (req, res) => {
     Disaster.find({}).then(disasters => res.json(disasters)).catch(err => res.json(error));
 });
 
+app.get(`/getDisaster/:id`, async (req, res) => {
+    try {
+        // Extract the ID parameter from the request
+        const { id } = req.params;
+
+        // Query the database to find the disaster with the specified ID
+        const disaster = await Disaster.findById(id);
+
+        // If the disaster is found, send it as a response
+        if (disaster) {
+            res.status(200).json(disaster);
+        } else {
+            // If the disaster is not found, send a 404 Not Found error
+            res.status(409).json({ error: 'Disaster not found' });
+        }
+    } catch (error) {
+        // If an error occurs, send a 500 Internal Server Error response
+        console.error('Error fetching disaster:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Route to add an image to uploadedPhotos array
+app.post('/addImage/:id', async (req, res) => {
+    try {
+        // Extract the Disaster ID and image URL from the request
+        const { id } = req.params;
+        const imageUrl = req.body;
+        // Find the Disaster document by ID
+        const disaster = await Disaster.findById(id);
+
+        // If the Disaster document is not found, send a 404 Not Found error
+        if (!disaster) {
+            return res.status(404).json({ error: 'Disaster not found' });
+        }
+
+        // Add the image URL to the uploadedPhotos array
+        disaster.uploadedPhotos.push(imageUrl.img);
+
+        // Save the updated Disaster document
+        await disaster.save();
+
+        // Send a success response
+        res.status(200).json({ message: 'Image added successfully', disaster });
+    } catch (error) {
+        // If an error occurs, send a 500 Internal Server Error response
+        console.error('Error adding image:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+//==========================endpoints realted to volunteers==============
 app.get("/getVolunteer", (req, res) => {
     Volunteer.find({}).then(volunteers => res.json(volunteers)).catch(err => res.json(error));
 });
@@ -78,7 +120,7 @@ app.get("/getVolunteer/:id", async (req, res) => {
 app.get("/countVolunteer", async (req, res) => {
     try {
         const count = await Volunteer.countDocuments();
-        console.log(`Total count of documents in the collection: ${count}`);
+
         res.json(count)
 
     } catch (err) {
@@ -86,6 +128,37 @@ app.get("/countVolunteer", async (req, res) => {
     }
 
 })
+
+app.get('/volunteers/emails', async (req, res) => {
+    try {
+        // Query the Volunteer collection to retrieve emails
+        const emails = await Volunteer.find({}, 'email');
+
+        // Extract the emails from the result and create an array
+        const emailList = emails.map(volunteer => volunteer.email);
+
+        // Send the list of emails as a response
+        res.status(200).json(emailList);
+    } catch (error) {
+        // Handle errors
+        console.error('Error retrieving emails:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+//=====================Endpoints realted to Donations=========
+app.post("/addDonation", async (req, res) => {
+    const body = req.body;
+    try {
+        const newDonation = await Donation.create(body)
+        newDonation.save();
+        res.status(201).json({ msg: "New Donation Succesfully...!" })
+    } catch (error) {
+        res.status(409).json({ message: error.message })
+    }
+});
 app.get("/totalDonations", async (req, res) => {
     try {
         const totalDonations = await Donation.aggregate([
@@ -108,15 +181,11 @@ app.get("/totalDonations", async (req, res) => {
     }
 });
 
-
-
-
-
-
+//========================================
 const port = 3001;
 app.listen(port, () => {
     console.log(`server is running on port ${port}`)
-})
+});
 
 
 
