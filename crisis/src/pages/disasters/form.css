@@ -5,11 +5,12 @@
 }
 .main {
   background: #f7eedd;
-  margin-top: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   margin-left: 15rem;
   margin-right: 15rem;
-  border: 2px solid;
-  border-top: None;
+  /* border: 2px solid; */
+  border-radius: 5px;
   padding: 15px;
 }
 .heading {
@@ -17,8 +18,9 @@
   padding-left: 7rem;
   margin-top: 4px;
   font-size: 50px;
-  color: #41c9e2;
-  font-weight: bold;
+  color: black;
+  box-shadow: 2px;
+  font-weight: semi-bold;
 }
 .subhead {
   /* padding-left: 1rem; */

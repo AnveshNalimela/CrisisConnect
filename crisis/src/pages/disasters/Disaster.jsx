@@ -5,6 +5,7 @@ import Footer from "../../Components/Footer.jsx";
 import Header from "../../Components/Header.jsx";
 import voluntee from "../../assets/images/Volunte.png";
 import box from "../../assets/images/box.png";
+
 ////////////////////////////////////////////////////////Image Modal/////////////////////
 const initialState = {
   uploadedPhotos: [""],

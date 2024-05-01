@@ -80,6 +80,7 @@ const Volunteers = () => {
           <div
             key={member._id}
             onClick={() => handleVolunteerClick(member._id)}
+            className="cursor-pointer"
           >
             <div className="px-4 py-2">
               <div className="flex items-center">
