@@ -40,7 +40,7 @@ const Crisis = () => {
                   <div className="font-bold text-xl mb-2">
                     {disaster.crisisType}:{disaster.location}
                   </div>
-                  <p className="text-gray-700 text-base">
+                  <p className="text-gray-700 h-50 w-full overflow-hidden whitespace-nowrap overflow-ellipsis text-base">
                     {disaster.description}
                   </p>
                   <div>

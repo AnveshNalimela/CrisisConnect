@@ -1,4 +1,3 @@
-import donate from "../assets/images/donation.png";
 import help from "../assets/images/help.png";
 import icon from "../assets/images/icon.png";
 
@@ -13,12 +12,10 @@ const Header = () => {
       </div>
       <div className="flex items-center">
         <button className="mr-2">
-          <a href="/newDisaster">
-            <img src={help} alt="register" className="w-10 h-15" />
+          <a href="/newDisaster" className="text-white text-semibold text-xl">
+            <img src={help} alt="register" className="w-20 h-15" />
+            Register
           </a>
-        </button>
-        <button>
-          <img src={donate} alt="help" className="w-10 h-15" />
         </button>
       </div>
     </header>

@@ -6,8 +6,7 @@ const cors = require("cors");
 const Disaster = require('./models/Disasters')
 const Volunteer = require("./models/volunteers")
 const Donation = require("./models/donations")
-
-
+const Comment = require("./models/comment")
 
 const connectionString = "mongodb://localhost:27017/CrisisConnect";
 const app = express()
@@ -180,6 +179,49 @@ app.get("/totalDonations", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
+//=============================routes realted to  comments end here==================================
+
+app.post('/comments', async (req, res) => {
+    try {
+        // Extract data from the request body
+        const { disasterId, name, comment } = req.body;
+
+        // Create a new comment document
+        const newComment = new Comment({
+            disasterId,
+            name,
+            comment
+        });
+        // Save the new comment to the database
+        await newComment.save();
+
+        // Send a success response
+        res.status(201).json(newComment);
+    } catch (error) {
+        // If an error occurs, send a 500 Internal Server Error response
+        console.error('Error creating comment:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+// Route to get comments based on the disaster ID
+app.get('/comments/:disasterId', async (req, res) => {
+    try {
+        // Extract the disaster ID from the request parameters
+        const { disasterId } = req.params;
+
+        // Find comments associated with the given disaster ID
+        const comments = await Comment.find({ disasterId });
+
+        // Send the comments as a response
+        res.status(200).json(comments);
+    } catch (error) {
+        // If an error occurs, send a 500 Internal Server Error response
+        console.error('Error fetching comments:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 //========================================
 const port = 3001;

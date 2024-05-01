@@ -1,12 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Footer from "../../Components/Footer.jsx";
 import Header from "../../Components/Header.jsx";
+import voluntee from "../../assets/images/Volunte.png";
 import box from "../../assets/images/box.png";
-import help from "../../assets/images/help.png";
-
-import { useParams } from "react-router-dom";
+////////////////////////////////////////////////////////Image Modal/////////////////////
 const initialState = {
   uploadedPhotos: [""],
 };
@@ -118,13 +117,117 @@ const ImageModal = ({ isOpen, onClose, onSubmit, id }) => {
     </>
   );
 };
+///////////////////////////////////////Comment Modal////////////////////////
 
+const CommentModal = ({ isOpen, onClose, id }) => {
+  const [name, setName] = useState("");
+  const [comment, setComment] = useState("");
+  const createComment = async (disasterId, name, comment) => {
+    try {
+      // Make a POST request to the create comment API endpoint
+      const responsec = await axios.post("http://localhost:3001/comments", {
+        disasterId,
+        name,
+        comment,
+      });
+
+      // If the request is successful, return the created comment
+      console.log(responsec.data);
+    } catch (error) {
+      // If an error occurs, log the error and return null
+      console.error("Error creating comment:", error);
+      return null;
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission
+    console.log("Name:", name);
+    console.log("Comment:", comment);
+    createComment(id, name, comment);
+    // Reset form fields
+    setName("");
+    setComment("");
+    // Close the modal
+    onClose();
+  };
+
+  return (
+    <>
+      {isOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded-lg w-96">
+            <h2 className="text-xl font-bold mb-4">Add Comment</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label
+                  htmlFor="name"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  Name:
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="comment"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  Comment:
+                </label>
+                <textarea
+                  id="comment"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:bg-blue-600"
+                >
+                  Submit
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:bg-gray-400"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+///////////////////////////////////////////Disaster Page///////////////
 const DisasterDetails = () => {
   const [disaster, setDisaster] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [comments, setComments] = useState([]);
+
+  const copenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const ccloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const openModal = () => {
     setIsOpen(true);
@@ -135,6 +238,7 @@ const DisasterDetails = () => {
   };
   useEffect(() => {
     getDisasterById(id);
+    fetchComments(id);
   }, []);
   const getDisasterById = async (id) => {
     try {
@@ -145,7 +249,7 @@ const DisasterDetails = () => {
 
       // If the request is successful, return the data
       console.log(response.data);
-      setDisaster(response.data);
+      await setDisaster(response.data);
       setLoading(false);
 
       return response.data;
@@ -171,10 +275,28 @@ const DisasterDetails = () => {
       return null;
     }
   };
+  const fetchComments = async (id) => {
+    try {
+      // Make a GET request to the API endpoint to fetch comments based on the disaster ID
+      const resc = await axios.get(`http://localhost:3001/comments/${id}`);
+
+      // If the request is successful, return the comments
+
+      // Verify that the data is fetched correctly
+      const list = resc.data;
+      setComments(list); // Verify that comments array is updated
+      return resc.data;
+    } catch (error) {
+      // If an error occurs, log the error and return null
+      console.error("Error fetching comments:", error);
+      return null;
+    }
+  };
   const handleSubmit = (imageURL) => {
     // Handle the submission of the image URL
     console.log("Submitted image URL:", imageURL);
   };
+  console.log(comments);
 
   if (loading) {
     return <div>Loading...</div>; // Render a loading indicator while data is being fetched
@@ -241,7 +363,7 @@ const DisasterDetails = () => {
           <p>:{disaster.additionalNotes}</p>
         </div>
         <div className="bg-zinc-200 dark:bg-zinc-700 p-4  my-2 rounded-lg shadow mx-10 text-xl">
-          <h3 className="font-bold">Additional Details:</h3>
+          <h3 className="font-bold">Emergency Responses:</h3>
           <p>:{disaster.emergencyResponse}</p>
         </div>
         <div className="mt-4 w-fit grid grid-cols-1 md:grid-cols-2 gap-4 items-center mx-10">
@@ -276,7 +398,7 @@ const DisasterDetails = () => {
               </div>
               <div className="ml-auto">
                 <img
-                  src={help}
+                  src={voluntee}
                   alt="help"
                   className="w-full h-full object-cover p-3  rounded-lg shadow-lg bg-white"
                 />
@@ -317,13 +439,42 @@ const DisasterDetails = () => {
           <div className="flex items-center justify-between">
             <h3 className="font-bold text-3xl text-center">Comments</h3>
             <button
+              onClick={copenModal}
               id="addCommentBtn"
               className="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded"
             >
               Add Comment
             </button>
+            <CommentModal isOpen={isModalOpen} onClose={ccloseModal} id={id} />
           </div>
-          <ul id="commentList" className="mt-2"></ul>
+          <div className="bg-white dark:bg-zinc-800 p-4 rounded-lg shadow-md">
+            <ul>
+              {comments.map((comment, i) => (
+                <li
+                  key={comment._id}
+                  className="border-b border-zinc-200 dark:border-zinc-600 py-2"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-zinc-600 dark:text-zinc-400">
+                        #{i + 1}
+                      </span>
+                      <span className="font-bold ml-2">{comment.name}</span>
+                    </div>
+                    <span
+                      className="text-zinc-500 dark:text-zinc-400"
+                      id="comment-time-1"
+                    >
+                      {comment.timestamp}
+                    </span>
+                  </div>
+                  <p className="text-zinc-700 dark:text-zinc-300 mt-2">
+                    {comment.comment}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
       <Footer />
