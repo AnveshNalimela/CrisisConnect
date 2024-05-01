@@ -41,7 +41,7 @@ const Volunteers = () => {
           //   </div>
           // </div>
           <div class="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 dark:bg-white dark:bg-opacity-50">
-            <div class="max-w-xl mx-4 bg-white shadow-lg rounded-lg overflow-hidden dark:bg-zinc-800">
+            <div class="w-1/3 mx-4 bg-white shadow-lg rounded-lg overflow-hidden dark:bg-zinc-800">
               <div class="px-4 py-2">
                 <div class="flex items-center">
                   <div class="mr-4">
@@ -59,8 +59,8 @@ const Volunteers = () => {
                   </div>
                 </div>
                 <div class="mt-4">
-                  <h3 class="text-lg font-bold">Skills</h3>
-                  <p class="text-zinc-600">{selectedVolunteer.skills}</p>
+                  <h3 class="text-lg font-bold">Age</h3>
+                  <p class="text-zinc-600">{selectedVolunteer.age}</p>
                 </div>
                 <div class="mt-4">
                   <h3 class="text-lg font-bold">Profession</h3>

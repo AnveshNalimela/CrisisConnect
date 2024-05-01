@@ -51,6 +51,7 @@ const NewProject = () => {
       })
       .catch((err) => console.error(err));
     console.log("Form submitted:", state);
+    window.location.reload();
   };
 
   return (
@@ -130,6 +131,7 @@ const NewProject = () => {
                         type="number"
                         id="age"
                         name="age"
+                        min="18"
                         value={state.age}
                         onChange={handleChange}
                         placeholder="Enter age..."

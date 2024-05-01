@@ -37,6 +37,7 @@ const DonationForm = () => {
       .then((res) => {
         console.log(res);
         dispatch({ type: "RESET" });
+        window.location.reload();
       })
       .catch((err) => console.error(err));
     setname(formData.name);

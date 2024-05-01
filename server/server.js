@@ -99,6 +99,29 @@ app.post('/addImage/:id', async (req, res) => {
     }
 });
 
+app.put('/updateFields/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { casualties, affectedPopulation, severity } = req.body;
+
+        const updateFields = {};
+        if (casualties) updateFields.casualties = casualties;
+        if (affectedPopulation) updateFields.affectedPopulation = affectedPopulation;
+        if (severity) updateFields.severity = severity;
+
+        const disaster = await Disaster.findByIdAndUpdate(id, updateFields, { new: true });
+
+        if (!disaster) {
+            return res.status(404).json({ error: 'Disaster not found' });
+        }
+
+        res.status(200).json({ message: 'Fields updated successfully', disaster });
+    } catch (error) {
+        console.error('Error updating fields:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 //==========================endpoints realted to volunteers==============
 app.get("/getVolunteer", (req, res) => {
     Volunteer.find({}).then(volunteers => res.json(volunteers)).catch(err => res.json(error));

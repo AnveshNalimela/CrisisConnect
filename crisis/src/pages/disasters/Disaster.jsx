@@ -5,6 +5,7 @@ import Footer from "../../Components/Footer.jsx";
 import Header from "../../Components/Header.jsx";
 import voluntee from "../../assets/images/Volunte.png";
 import box from "../../assets/images/box.png";
+import UpdateModal from "./updateModal.jsx";
 
 ////////////////////////////////////////////////////////Image Modal/////////////////////
 const initialState = {
@@ -47,6 +48,7 @@ const ImageModal = ({ isOpen, onClose, onSubmit, id }) => {
       console.log(res.data);
       dispatch({ type: "RESET" });
       onSubmit("Suceesfully image added");
+      window.location.reload();
       // If the request is successful, return the response data
     } catch (error) {
       // If an error occurs, log the error and return null
@@ -131,7 +133,7 @@ const CommentModal = ({ isOpen, onClose, id }) => {
         name,
         comment,
       });
-
+      window.location.reload();
       // If the request is successful, return the created comment
       console.log(responsec.data);
     } catch (error) {
@@ -221,6 +223,21 @@ const DisasterDetails = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [comments, setComments] = useState([]);
+  const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
+
+  const openUpdateModal = () => {
+    setUpdateModalOpen(true);
+  };
+
+  const closeUpdateModal = () => {
+    setUpdateModalOpen(false);
+  };
+
+  const handleUpdate = (updatedValue) => {
+    // Your logic to handle the update goes here
+    console.log("Updated value:", updatedValue);
+    closeUpdateModal(); // Close the modal after updating
+  };
 
   const copenModal = () => {
     setIsModalOpen(true);
@@ -332,7 +349,7 @@ const DisasterDetails = () => {
             )}
           </div>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 mx-10">
           <p className="text-center">{disaster.description}.</p>
         </div>
         <div className="mt-4 mx-10 grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -341,22 +358,49 @@ const DisasterDetails = () => {
             <p className="text-center text-bold text-4xl">
               {disaster.casualties}
             </p>
+            <button onClick={openUpdateModal}>Update Status</button>
+
+            {/* Update modal component */}
+            <UpdateModal
+              isOpen={isUpdateModalOpen}
+              onClose={closeUpdateModal}
+              onUpdate={handleUpdate}
+              disaster={disaster}
+            />
           </div>
-          <div className="bg-sky-400 dark:bg-zinc-700 p-4 rounded-lg shadow">
+          <div className="bg-sky-400 text-center dark:bg-zinc-700 p-4 rounded-lg shadow">
             <h3 className="font-bold  text-center text-white text-xl">
               Affected People
             </h3>
             <p className="text-center text-bold text-4xl">
               {disaster.affectedPopulation}
             </p>
+            <button onClick={openUpdateModal}>Update Status</button>
+
+            {/* Update modal component */}
+            <UpdateModal
+              isOpen={isUpdateModalOpen}
+              onClose={closeUpdateModal}
+              onUpdate={handleUpdate}
+              disaster={disaster}
+            />
           </div>
-          <div className="bg-sky-400 dark:bg-zinc-700 p-4 rounded-lg shadow">
+          <div className="bg-sky-400 text-center dark:bg-zinc-700 p-4 rounded-lg shadow">
             <h3 className="font-bold text-center  text-white text-xl">
               Severity
             </h3>
             <p className="text-center text-bold text-4xl">
               {disaster.severity}
             </p>
+            <button onClick={openUpdateModal}>Update Status</button>
+
+            {/* Update modal component */}
+            <UpdateModal
+              isOpen={isUpdateModalOpen}
+              onClose={closeUpdateModal}
+              onUpdate={handleUpdate}
+              disaster={disaster}
+            />
           </div>
         </div>
         <div className="bg-zinc-200 dark:bg-zinc-700  my-2 p-4 rounded-lg shadow mx-10 text-xl">
