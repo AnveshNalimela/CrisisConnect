@@ -103,14 +103,15 @@ app.put('/updateFields/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { casualties, affectedPopulation, severity } = req.body;
-
+        console.log("api is called in backend")
+        console.log(casualties, affectedPopulation, severity);
         const updateFields = {};
         if (casualties) updateFields.casualties = casualties;
         if (affectedPopulation) updateFields.affectedPopulation = affectedPopulation;
         if (severity) updateFields.severity = severity;
 
         const disaster = await Disaster.findByIdAndUpdate(id, updateFields, { new: true });
-
+        console.log(disaster);
         if (!disaster) {
             return res.status(404).json({ error: 'Disaster not found' });
         }
@@ -171,6 +172,9 @@ app.get('/volunteers/emails', async (req, res) => {
 
 
 //=====================Endpoints realted to Donations=========
+app.get("/getDonations", (req, res) => {
+    Donation.find({}).then(Donations => res.json(Donations)).catch(err => res.json(error));
+});
 app.post("/addDonation", async (req, res) => {
     const body = req.body;
     try {

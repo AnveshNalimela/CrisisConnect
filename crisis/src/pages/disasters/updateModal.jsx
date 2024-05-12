@@ -1,13 +1,17 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const UpdateModal = ({ isOpen, onClose, onUpdate, disaster }) => {
- 
+  const [casualties, setCasualties] = useState(disaster.casualties);
+  const [affectedPopulation, setAffectedPopulation] = useState(
+    disaster.affectedPopulation
+  );
+  const [severity, setSeverity] = useState(disaster.severity);
 
   const updateDisasterFields = async (id, fieldsToUpdate) => {
     try {
       const response = await axios.put(
-        `http://localhost:3001/updateFields/${disaster._id}`,
+        `http://localhost:3001/updateFields/${id}`,
         fieldsToUpdate
       );
       return response.data;
@@ -17,10 +21,24 @@ const UpdateModal = ({ isOpen, onClose, onUpdate, disaster }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    onClose(); // Close the modal after updating
+    const fieldsToUpdate = {
+      casualties,
+      affectedPopulation,
+      severity,
+    };
+    console.log(fieldsToUpdate);
+
+    try {
+      await updateDisasterFields(disaster._id, fieldsToUpdate);
+      window.location.reload();
+      onUpdate(); // Trigger parent component update
+      onClose(); // Close the modal after updating
+    } catch (error) {
+      console.error("Error updating disaster fields:", error);
+    }
   };
 
   return (
@@ -56,6 +74,8 @@ const UpdateModal = ({ isOpen, onClose, onUpdate, disaster }) => {
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       placeholder={disaster.casualties}
                       min={disaster.casualties}
+                      value={casualties} // Set the value of the input field
+                      onChange={(e) => setCasualties(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -71,6 +91,8 @@ const UpdateModal = ({ isOpen, onClose, onUpdate, disaster }) => {
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       placeholder={disaster.affectedPopulation}
                       min={disaster.affectedPopulation}
+                      value={affectedPopulation} // Set the value of the input field
+                      onChange={(e) => setAffectedPopulation(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -85,6 +107,8 @@ const UpdateModal = ({ isOpen, onClose, onUpdate, disaster }) => {
                       id="updateField"
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       placeholder={disaster.severity}
+                      value={severity} // Set the value of the input field
+                      onChange={(e) => setSeverity(e.target.value)}
                     />
                   </div>
                 </div>

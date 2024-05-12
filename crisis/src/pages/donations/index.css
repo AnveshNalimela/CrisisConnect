@@ -1,0 +1,27 @@
+/* App.css */
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.donation-list {
+  margin-top: 20px;
+}
+
+.donation-grid {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.donation-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}

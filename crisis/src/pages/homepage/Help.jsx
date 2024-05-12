@@ -48,15 +48,16 @@ const Help = () => {
             </div>
           </div>
         </Link>
-
-        <div className="relative w-32 h-32 flex justify-center items-center">
-          <div className="text-4xl font-bold">
-            {donationAmout.totalDonations}
+        <Link to="/Donations">
+          <div className="relative w-32 h-32 flex justify-center items-center">
+            <div className="text-4xl font-bold">
+              {donationAmout.totalDonations}
+            </div>
+            <div className="absolute bottom-0 px-10  text-center text-2xl text-gray-600">
+              Donations
+            </div>
           </div>
-          <div className="absolute bottom-0 px-10  text-center text-2xl text-gray-600">
-            Donations
-          </div>
-        </div>
+        </Link>
       </div>
     </div>
   );
