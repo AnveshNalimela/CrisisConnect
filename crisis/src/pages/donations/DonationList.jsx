@@ -4,17 +4,16 @@ import React, { useEffect, useState } from "react";
 
 const DonationList = () => {
   const [donations, setDonations] = useState([]);
+  const fetchDonations = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/getDonations"); // Replace with your API endpoint
+      setDonations(response.data);
+    } catch (error) {
+      console.error("Error fetching donations:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchDonations = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/getDonations"); // Replace with your API endpoint
-        setDonations(response.data);
-      } catch (error) {
-        console.error("Error fetching donations:", error);
-      }
-    };
-
     fetchDonations();
   }, []);
 
