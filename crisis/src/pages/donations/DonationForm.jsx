@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useReducer, useState } from "react";
 import hands from "../../assets/images/hands.png";
 
+
 const initialState = {
   name: "",
   contactNo: "",
@@ -37,7 +38,7 @@ const DonationForm = () => {
       .then((res) => {
         console.log(res);
         dispatch({ type: "RESET" });
-        window.location.href = "https://pmnrf.gov.in/en/online-donation";
+        countDocuments();
       })
       .catch((err) => console.error(err));
     setname(formData.name);
@@ -48,14 +49,18 @@ const DonationForm = () => {
   return (
     <div className="max-w-md pt-10 ">
       {submitted ? (
-        <div class="max-w-xl mx-auto flex items-center justify-center  bg-white shadow-lg rounded-lg overflow-hidden dark:bg-zinc-800">
-          <div class="px-4 py-2">
-            <div class="flex items-center justify-center">
-              <img src={hands} alt="profile" class="w-32 h-32 rounded-full" />
+        <div className="max-w-xl mx-auto flex items-center justify-center  bg-white shadow-lg rounded-lg overflow-hidden dark:bg-zinc-800">
+          <div className="px-4 py-2">
+            <div className="flex items-center justify-center">
+              <img
+                src={hands}
+                alt="profile"
+                className="w-32 h-32 rounded-full"
+              />
             </div>
 
-            <h2 class="text-2xl font-bold text-center mb-2">Thank You!</h2>
-            <p class="text-center my-3">
+            <h2 className="text-2xl font-bold text-center mb-2">Thank You!</h2>
+            <p className="text-center my-3">
               Dear {name}, we appreciate your support.
             </p>
           </div>

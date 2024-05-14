@@ -77,8 +77,8 @@ const DisasterForm = () => {
         "http://localhost:3001/addDisaster",
         formData
       );
-      navigate("/");
       sendEmail(formData);
+      navigate("/");
       console.log(response.data); // Log response from backend
 
       dispatch({ type: "RESET" }); // Reset form after successful submission

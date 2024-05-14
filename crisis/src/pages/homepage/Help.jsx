@@ -25,6 +25,7 @@ const Help = () => {
   useEffect(() => {
     countDocuments();
   }, []);
+
   return (
     <div className="w-full h-500 pb-10 bg-sky-300 ">
       <h1 className="text-center text-3xl font-semibold text-black py-4">

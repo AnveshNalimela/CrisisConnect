@@ -18,6 +18,7 @@ const Volunteers = () => {
     });
     fetchVolunteers();
   }, []);
+
   const handleVolunteerClick = (volunteerId) => {
     axios
       .get(`http://localhost:3001/getVolunteer/${volunteerId}`)
@@ -31,15 +32,6 @@ const Volunteers = () => {
     <>
       <div className="grid gap-5 grid-cols-2  px-20 py-10  ">
         {selectedVolunteer && (
-          // <div className="popup">
-          //   <div className="popup-inner">
-          //     <h2>Name:{selectedVolunteer.name}</h2>
-          //     <p>Email: {selectedVolunteer.email}</p>
-          //     <p>City: {selectedVolunteer.city}</p>
-          //     {/* Add more details here as needed */}
-          //     <button onClick={() => setSelectedVolunteer(null)}>Close</button>
-          //   </div>
-          // </div>
           <div class="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 dark:bg-white dark:bg-opacity-50">
             <div class="w-1/3 mx-4 bg-white shadow-lg rounded-lg overflow-hidden dark:bg-zinc-800">
               <div class="px-4 py-2">
